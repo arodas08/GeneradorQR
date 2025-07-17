@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de Código QR</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <div class="container">
+    <div class="formulario">
+      <h2>Añade componentes al código QR</h2>
+
+      <div class="campo">
+        <label for="nombre">Nombre del código QR</label>
+        <select id="nombre">
+          <option value="" disabled selected>Seleccione un componente</option>
+          <option value="CPU">CPU</option>
+          <option value="FLASH">FLASH</option>
+          <option value="CONT">CONT</option>
+          <option value="LSU">LSU</option>
+          <option value="POWER SUPPLY">POWER SUPPLY</option>
+          <option value="MMI CONTROLLER">MMI CONTROLLER</option>
+          <option value="CONTROLADOR SEMAFORICO">CONTROLADOR SEMAFORICO</option>
+        </select>
+      </div>
+
+      <div class="campo">
+  <label for="texto">Texto simple</label>
+  <input type="text" id="texto" placeholder="Ej. número de código QR">
+</div>
+
+<div class="campo">
+  <label for="observaciones">Observaciones</label>
+  <input type="text" id="observaciones" placeholder="Ej. descripción del componente">
+</div>
+      
+      <div class="campo">
+        <label>Color del código QR</label>
+        <div class="colores">
+          <label class="color-option" style="background-color: #000000;">
+            <input type="radio" name="color" value="#000000" checked>
+          </label>
+          <label class="color-option" style="background-color: #1E90FF;">
+            <input type="radio" name="color" value="#1E90FF">
+          </label>
+          <label class="color-option" style="background-color: #FF4500;">
+            <input type="radio" name="color" value="#FF4500">
+          </label>
+          <label class="color-option" style="background-color: #228B22;">
+            <input type="radio" name="color" value="#228B22">
+          </label>
+          <label class="color-option" style="background-color: #800080;">
+            <input type="radio" name="color" value="#800080">
+          </label>
+        </div>
+      </div>
+      
+
+      <button class="btn" id="btn-generar" onclick="generarQR()" disabled>Generar Código QR</button>
+      <button class="btn" id="btn-descargar" onclick="descargarQR()" disabled>Descargar QR</button>
+      <button class="btn" onclick="reiniciarFormulario()">Crear otro</button>
+
+    </div>
+
+    <div class="preview">
+      <div class="phone-frame">
+        <div class="qr-container">
+          <canvas id="qrcode"></canvas>
+          <p>¡Escanéame!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="registro-container">
+    <h3>Registro de códigos generados</h3>
+     <table id="registro">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Fecha / Hora</th>   <!-- ← NUEVO -->
+                <th>Nombre</th>
+                <th>Texto</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+    <tbody></tbody>
+  </table>
+  <button class="btn" onclick="imprimirRegistro()">Imprimir o Guardar como PDF</button>
+  <button class="btn" onclick="limpiarRegistro()">Limpiar Registro (con backup)</button>
+  <button class="btn" onclick="restaurarBackup()">Restaurar respaldo</button>
+
+</div>
+
+<div id="popup-confirmacion" class="popup-overlay">
+  <div class="popup-contenido">
+    <p>¿Deseas borrar el historial?<br><strong>Se hará una copia de seguridad.</strong></p>
+    <div class="popup-botones">
+      <button class="btn btn-popup" onclick="confirmarLimpiarRegistro(true)">Sí, borrar</button>
+      <button class="btn btn-popup cancelar" onclick="confirmarLimpiarRegistro(false)">Cancelar</button>
+      
+
+    </div>
+  </div>
+</div>
+
+  <!-- Librería QR -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+ <script src="app.js"></script>
+
+ 
+  
+</body>
+</html>
